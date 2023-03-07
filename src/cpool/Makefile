@@ -1,16 +1,19 @@
 CFLAGS = -g
-EXECUTABLE = qmain 
+EXECUTABLE = pooltest
 
-qmain: qmain.o cqueue.o spinlock.o
-	gcc -o ${EXECUTABLE} ${CFLAGS} -pthread qmain.o cqueue.o spinlock.o
+pooltest: pooltest.o pool.o cqueue.o spinlock.o
+	gcc -o ${EXECUTABLE} ${CFLAGS} -pthread pooltest.o pool.o cqueue.o spinlock.o
 
-qmain.o: qmain.c cqueue.h
-	gcc -c ${CFLAGS} qmain.c 
+pooltest.o: pooltest.c 
+	gcc -c ${CFLAGS} pooltest.c
 
-cqueue.o: cqueue.c cqueue.h spinlock.h
+pool.o: pool.c pool.h cqueue.h spinlock.h rc.h
+	gcc -c ${CFLAGS} pool.c
+
+cqueue.o: cqueue.c cqueue.h spinlock.h rc.h
 	gcc -c ${CFLAGS} cqueue.c
 
-spinlock.o: spinlock.c spinlock.h
+spinlock.o: spinlock.c spinlock.h rc.h
 	gcc -c ${CFLAGS} spinlock.c 
 
 clean:

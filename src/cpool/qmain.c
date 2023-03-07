@@ -55,7 +55,7 @@ static void* dequeue_thread(void* arg) {
             return rc;
         }
 
-        free(value);   
+        free(value);
     }
 
     return rc;
